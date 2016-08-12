@@ -1,6 +1,11 @@
-模拟事件触发机制
-eg：
-点击button//动作
-触发action//行为/活动
+.
+├── eventCustomer.h		//事件执行/消费者中心
+├── eventDispatch.h		//事件分发中心/调度器
+├── main.cpp			//主测试
+├── observer.h			//观察者接口->提供dispatch接口，供productevent使用
+├── productEvent.h		//事件封装，消息合成事件
+├── product.h			//消息产生，使用单一调用工厂实现
+├── README
+└── trace.h				//trace跟踪调试程序
 
-1产品生成
+0 directories, 8 files

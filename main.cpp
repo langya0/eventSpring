@@ -29,7 +29,6 @@ int main(int argc, char const *argv[])
 	cout << "注册一个写事件执行者" <<endl;
 	dis->registerCustomer(_writer);
 
-	// 建立一个原子弹生叉工厂
 	ProductManager *factory = new ProductManager();
 	for(int i = 0 ; i < 10; ++ i)
 	{
