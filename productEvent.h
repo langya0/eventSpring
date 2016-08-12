@@ -1,11 +1,18 @@
 #pragma once
-#include "eventDispatch.h"
+// #include "eventDispatch.h"
+#include "product.h"
+#include "observer.h"
+
 struct productEventType
 {
 private:
 	int value;
 public:
-	enum{NEW_PRODUCT=1,DEL_PRODUCT=2,EDIT_PRODUCT=3,CLONE_PRODUCT=4};
+	enum{
+		READ = 1,
+		WRITE = 2,
+		EXIT = 3
+	};
 	productEventType(int _value)
 	:value(_value)
 	{}
@@ -24,18 +31,18 @@ protected:
 	observer* obs;	//观察者
 
 public:
-	productEvent(product* p)
+	productEvent(observer* _obs,product* p)
 	:source(p)
-	,type(new productEventType(productEventType::NEW_PRODUCT))
-	,obs(NULL)
+	,type(new productEventType(productEventType::READ))
+	,obs(_obs)
 	{
 		Trace("");
 		notifyEventDispatch();
 	}
-	productEvent(product* p,productEventType* _type)
+	productEvent(observer* _obs,product* p,const int _type)
 	:source(p)
-	,type(_type)
-	,obs(NULL)
+	,type(new productEventType(_type))
+	,obs(_obs)
 	{
 		Trace("");
 		// 事件触发
@@ -55,17 +62,12 @@ protected:
 	void notifyEventDispatch()
 	{
 		Trace("");
-		obs = eventDispatch::getEventDispatch();
-		obs->update(type,source);
+		// obs = eventDispatch::getEventDispatch();
+		obs->update(this,source);
 	}
 	~productEvent()
 	{
 		Trace("");
 	}
 };
-void testproductEvent()
-{
-	ProductManager manager;
-	product* pro = manager.createProduct("lianglihui");
-	productEvent* p = new productEvent(pro);	
-}
+
